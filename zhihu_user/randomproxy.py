@@ -2,6 +2,7 @@ import random
 import scrapy
 from scrapy import log
 import time
+from os import path
 
 # logger = logging.getLogger()
 
@@ -28,7 +29,7 @@ class ProxyMiddleWare(object):
 	def get_random_proxy(self):
 		'''随机从文件中读取proxy'''
 		while 1:
-			with open('E:\\GitHub\\zhihu_user\\zhihu_user\\list.txt', 'r') as f:
+			with open(path.join(path.abspath('.'),'list.py'), 'r') as f:
 				proxies = f.readlines()
 			if proxies:
 				break
