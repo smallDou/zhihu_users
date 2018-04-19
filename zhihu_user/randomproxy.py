@@ -29,7 +29,7 @@ class ProxyMiddleWare(object):
 	def get_random_proxy(self):
 		'''随机从文件中读取proxy'''
 		while 1:
-			with open(path.join(path.abspath('.'),'list.txt'), 'r') as f:
+			with open(path.join(path.abspath('.'),'zhihu_user/list.txt'), 'r') as f:
 				proxies = f.readlines()
 			if proxies:
 				break
