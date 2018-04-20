@@ -14,24 +14,29 @@ headers = {
 
 def parse_prose():
     for time in range(3): #跑三遍确认代理可用
-        with open(path.join(path.abspath('.'),'/zhihu_user/list1.txt'), 'r') as f:
+        with open(path.join(path.abspath('.'),'list.txt'), 'r') as f:
             list = []
             lines = f.readlines()
             for line in lines:
                 print(line.strip())
                 try:
                     proxies = {'https': line.strip() }
-                    response = requests.get('https://www.zhihu.com/api/v4/members/yan-jia-cheng-75?include=allow_message,is_followed,is_following,is_org,is_blocking,employments,answer_count,follower_count,articles_count,gender,badge[?(type=best_answerer)].topics',headers=headers, proxies=proxies)
+                    response = requests.get('https://www.zhihu.com/api/v4/members/yan-jia-cheng-75?include=allow_message,is_followed,is_following,is_org,is_blocking,employments,answer_count,follower_count,articles_count,gender,badge[?(type=best_answerer)].topics',headers=headers, proxies=proxies,timeout=8)
                     if response.status_code == 200:
                         list.append(line)
                     print(list)
                 except:
                     print('error')
-        with open(path.join(path.abspath('.'),'/zhihu_user/list1.txt'), 'w+') as f:
-            if time == 2:
-                for i in list:
-                    f.write('https://' + i)
-            else:
-                for i in list:
+        with open(path.join(path.abspath('.'),'list.txt'), 'w+') as f:
+            for i in list:
+                if 'https://' in i:
                     f.write(i)
+                else:
+                    f.write('https://' + i)
         time+=1
+
+def main():
+    parse_prose()
+
+if __name__ == '__main__':
+    main()
