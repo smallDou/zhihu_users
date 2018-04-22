@@ -20,7 +20,6 @@ class ZhihuSpider(scrapy.Spider):
     followers_url = 'https://www.zhihu.com/api/v4/members/{user}/followers?include={include}&offset={offset}&limit={limit}'
     followers_query = 'data[*].answer_count,articles_count,gender,follower_count,is_followed,is_following,badge[?(type=best_answerer)].topics'
 
-    PROXY_POOL_URL = 'http://localhost:5000/get'
     def start_requests(self):
         yield scrapy.Request(
             self.user_url.format(
@@ -97,10 +96,3 @@ class ZhihuSpider(scrapy.Spider):
             next_page = results.get('paging').get('next')
             yield scrapy.Request(next_page,callback=self.parse_followers)
  
-def get_proxy(self):
-    try:
-        response = requests.get(self.PROXY_POOL_URL)
-        if response.status_code == 200:
-            return response.text
-    except ConnectionError:
-        return None
